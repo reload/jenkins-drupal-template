@@ -1,0 +1,99 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html lang="en">
+  <head>
+    <title>Jenkins job template for Drupal projects</title>
+    <link href="http://kevinburke.bitbucket.org/markdowncss/markdown.css" rel="stylesheet"></link>
+    <link href="styles/styles.css" rel="stylesheet"></link>
+  </head>
+  <body>
+    <h1>Jenkins job template for Drupal projects</h1>
+    <blockquote>
+  <p>Most web applications are changed and adapted quite frequently and quickly. Their environment, for example the size and the behaviour of the user base, are constantly changing. What was sufficient yesterday can be insufficient today. Especially in a web environment it is important to monitor and continuously improve the internal quality not only when developing, but also when maintaining the software.</p>
+  
+  <p><a href="http://jenkins-ci-org">Jenkins</a> is the leading <a href="http://en.wikipedia.org/wiki/Open_Source">open-source</a> <a href="http://martinfowler.com/articles/continuousIntegration.html">continuous integration</a> server. Thanks to its thriving plugin ecosystem, it supports building and testing virtually any project.</p>
+  
+  <p><cite>Sebastian Bergmann and contributors, <a href="http://jenkins-php.org/">Template for Jenkins Jobs for PHP Projects</a></cite></p>
+</blockquote>
+
+<p>The goal of this project is to provide a standard Jenkins job template for Drupal projects.</p>
+
+<h2>Required Jenkins Plugins</h2>
+
+<p>You need to install the following plugins for Jenkins:</p>
+
+<ul>
+<li><a href="https://wiki.jenkins-ci.org/display/JENKINS/Phing+Plugin">Phing</a> (for running <a href="http://phing.info">Phing</a> build files)</li>
+<li><a href="http://wiki.jenkins-ci.org/display/JENKINS/Checkstyle+Plugin">Checkstyle</a> (for processing <a href="http://drupal.org/project/coder">Drupal Coder module</a> or <a href="http://pear.php.net/PHP_CodeSniffer">PHP_Codesniffer</a> logfiles in Checkstyle format)</li>
+<li><a href="http://wiki.jenkins-ci.org/display/JENKINS/DRY+Plugin">DRY</a> (for processing <a href="https://github.com/sebastianbergmann/phpcpd">phpcpd</a> logfiles in PMD-CPD format)</li>
+<li><a href="http://wiki.jenkins-ci.org/display/JENKINS/PMD+Plugin">PMD</a> (for processing <a href="http://phpmd.org/">PHPMD</a> logfiles in PMD format)</li>
+<li><a href="https://wiki.jenkins-ci.org/display/JENKINS/Static+Code+Analysis+Plug-ins">Static Code Analysis</a> (for processing various logfiles)</li>
+<li><a href="https://wiki.jenkins-ci.org/display/JENKINS/Analysis+Collector+Plugin">Analysis Collector</a> (for processing various logfiles)</li>
+</ul>
+
+<p>You can install these plugins using the web frontend at</p>
+
+<pre><code>http://localhost:8080/pluginManager/available
+</code></pre>
+
+<p>or using the <a href="http://wiki.jenkins-ci.org/display/JENKINS/Jenkins+CLI">Jenkins CLI</a>:</p>
+
+<pre><code>wget http://localhost:8080/jnlpJars/jenkins-cli.jar
+java -jar jenkins-cli.jar -s http://localhost:8080 install-plugin phing
+java -jar jenkins-cli.jar -s http://localhost:8080 install-plugin checkstyle
+java -jar jenkins-cli.jar -s http://localhost:8080 install-plugin dry
+java -jar jenkins-cli.jar -s http://localhost:8080 install-plugin pmd
+java -jar jenkins-cli.jar -s http://localhost:8080 install-plugin analysis-core
+java -jar jenkins-cli.jar -s http://localhost:8080 install-plugin analysis-collector
+java -jar jenkins-cli.jar -s http://localhost:8080 safe-restart
+</code></pre>
+
+<p>In the above, replace <code>localhost:8080</code> with the hostname and port of your Jenkins installation.</p>
+
+<h2>Build Automation</h2>
+
+<p>The build is orchestrated by the <a href="http://reload.github.com/phing-drupal-template">Phing Drupal Template</a>.</p>
+
+<p>The artifacts produced in the build process will be processed by Jenkins.</p>
+
+<h2>Using the Job Template</h2>
+
+<ol>
+<li>Check out the <code>jenkins-drupal-template</code> project from Git:
+<pre><code>cd $JENKINS_HOME/jobs
+git clone git://github.com/reload/jenkins-drupal-template.git drupal-template
+chown -R jenkins:nogroup drupal-template/</code></pre></li>
+<li>Reload Jenkins' configuration, for instance using the Jenkins CLI:
+<pre><code>java -jar jenkins-cli.jar -s http://localhost:8080 reload-configuration</pre></code></li>
+<li>Click on "New Job".</li>
+<li>Enter a "Job name".</li>
+<li>Select "Copy existing job" and enter "drupal-template" into the "Copy from" field.</li>
+<li>Click "OK".</li>
+<li>Replace "localhost:8080" with the hostname and port of your Jenkins installation and replace the two occurrences of "job-name" with the name of your job in the "Description" text box.</li>
+<li>Disable the "Disable Build" option.</li>
+<li>Fill in your "Source Code Management" information.</li>
+<li>Configure a "Build Trigger", for instance "Poll SCM".</li>
+<li>Click "Save".</li>
+</ol>
+
+<h2>Demo</h2>
+
+<p>An example project that uses an Apache Ant build script like the one shown above is continuously integrated for demonstration purposes.</p>
+
+<h2>Support</h2>
+
+<p><a href="https://github.com/reload/jenkins-drupal-template/issues">Issues are tracked on GitHub</a>.</p>
+
+
+    <hr/>
+
+    <p>
+      The "Jenkins job template for Drupal projects" by Kasper Garnæs and his contributors is licensed under a
+    Creative Commons Attribution-ShareAlike 3.0 Unported License.
+    </p>
+    <p>
+      It is based upon Sebastian Bergmans <a href="http://jenkins-php.org/">"Template for Jenkins Jobs for PHP Projects"</a>.
+    </p>
+
+    <a href="http://github.com/reload/jenkins-drupal-template"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://a248.e.akamai.net/assets.github.com/img/7afbc8b248c68eb468279e8c17986ad46549fb71/687474703a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub"></a>
+  </body>
+</html>
