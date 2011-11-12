@@ -4,9 +4,9 @@
 >
 > <cite>Sebastian Bergmann and contributors, <a href="http://jenkins-php.org/">Template for Jenkins Jobs for PHP Projects</a></cite>
 
+The goals of the Jenkins job template for PHP projects also holds true for Drupal projects. However Drupal has it's own idiosyncrasies so tools and metrics differ.
 
-
-The goal of this project is to provide a standard Jenkins job template for Drupal projects.
+This project aims to provide a standard Jenkins job template for Drupal projects.
 
 ## Required Jenkins Plugins
 You need to install the following plugins for Jenkins:
@@ -36,9 +36,9 @@ or using the [Jenkins CLI](http://wiki.jenkins-ci.org/display/JENKINS/Jenkins+CL
 In the above, replace `localhost:8080` with the hostname and port of your Jenkins installation.
 
 ## Build Automation
-The build is orchestrated by the [Phing Drupal Template](http://reload.github.com/phing-drupal-template).
+The configuration of the job template follows the artifacts produced by a Phing build.xml file based on the [Phing Drupal Template](http://reload.github.com/phing-drupal-template).
 
-The artifacts produced in the build process will be processed by Jenkins.
+The build template must be added to your project as described in [the build template documentation](http://reload.github.com/phing-drupal-template).
 
 ## Using the Job Template
 1. Check out the `jenkins-drupal-template` project from Git:
@@ -58,7 +58,7 @@ The artifacts produced in the build process will be processed by Jenkins.
 11. Click "Save".
 
 ## Demo
-An example project that uses an Apache Ant build script like the one shown above is continuously integrated for demonstration purposes.
+The [drupal-jenkins-demo repository](http://github.com/kasperg/drupal-jenkins-demo) contains a Drupal project with the [Phing Drupal Template](http://reload.github.com/phing-drupal-template) and the [Token module](http://drupal.org/project/token) as example of custom code is continuously integrated for [demonstration](http://jenkins.kasper.reload.dk:8080/job/drupal-demo/) purposes.
 
 ## Support
 [Issues are tracked on GitHub](https://github.com/reload/jenkins-drupal-template/issues).
