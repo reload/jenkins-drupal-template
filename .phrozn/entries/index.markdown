@@ -4,9 +4,11 @@
 >
 > <cite>Sebastian Bergmann and contributors, <a href="http://jenkins-php.org/">Template for Jenkins Jobs for PHP Projects</a></cite>
 
-The goals of the Jenkins job template for PHP projects also holds true for Drupal projects. However Drupal has it's own idiosyncrasies so tools and metrics differ.
+The goals of the Jenkins job template for PHP projects also holds true for [Drupal](http://drupal.org) projects. However Drupal has it's own idiosyncrasies so tools and metrics differ.
 
 This project aims to provide a standard Jenkins job template for Drupal projects.
+
+Along with the [Phing Drupal Template](http://reload.github.com/phing-drupal-template) and the [Drupal Jenkins demo](http://github.com/kasperg/drupal-jenkins-demo) it is a part of an effort to create better continuous integration tools for Drupal projects to improve quality.
 
 ## Required Jenkins Plugins
 You need to install the following plugins for Jenkins:
@@ -51,11 +53,10 @@ The build template must be added to your project as described in [the build temp
 4. Enter a "Job name".
 5. Select "Copy existing job" and enter "drupal-template" into the "Copy from" field.
 6. Click "OK".
-7. Replace "localhost:8080" with the hostname and port of your Jenkins installation and replace the two occurrences of "job-name" with the name of your job in the "Description" text box.
-8. Disable the "Disable Build" option.
-9. Fill in your "Source Code Management" information.
-10. Configure a "Build Trigger", for instance "Poll SCM".
-11. Click "Save".
+7. Disable the "Disable Build" option.
+8. Fill in your "Source Code Management" information.
+9. Configure a "Build Trigger", for instance "Poll SCM".
+10. Click "Save".
 
 ## Demo
 The [drupal-jenkins-demo repository](http://github.com/kasperg/drupal-jenkins-demo) contains a Drupal project with the [Phing Drupal Template](http://reload.github.com/phing-drupal-template) and the [Token module](http://drupal.org/project/token) as example of custom code is continuously integrated for [demonstration](http://jenkins.kasper.reload.dk:8080/job/drupal-demo/) purposes.
