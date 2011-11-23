@@ -16,7 +16,7 @@
   <p><cite>Sebastian Bergmann and contributors, <a href="http://jenkins-php.org/">Template for Jenkins Jobs for PHP Projects</a></cite></p>
 </blockquote>
 
-<p>The goals of the Jenkins job template for PHP projects also holds true for <a href="http://drupal.org">Drupal</a> projects. However Drupal has it's own idiosyncrasies so tools and metrics differ.</p>
+<p>The goals of the Jenkins job template for PHP projects also holds true for <a href="http://drupal.org">Drupal</a> projects. However Drupal has it's own idiosyncrasies so <a href="#differences-from-php-template">tools and metrics differ</a>.</p>
 
 <p>This project aims to provide a standard Jenkins job template for Drupal projects.</p>
 
@@ -27,12 +27,13 @@
 <p>You need to install the following plugins for Jenkins:</p>
 
 <ul>
-<li><a href="https://wiki.jenkins-ci.org/display/JENKINS/Phing+Plugin">Phing</a> (for running <a href="http://phing.info">Phing</a> build files)</li>
+<li><a href="https://wiki.jenkins-ci.org/display/JENKINS/Analysis+Collector+Plugin">Analysis Collector</a> (for processing various logfiles)</li>
 <li><a href="http://wiki.jenkins-ci.org/display/JENKINS/Checkstyle+Plugin">Checkstyle</a> (for processing <a href="http://drupal.org/project/coder">Drupal Coder module</a> or <a href="http://pear.php.net/PHP_CodeSniffer">PHP_Codesniffer</a> logfiles in Checkstyle format)</li>
 <li><a href="http://wiki.jenkins-ci.org/display/JENKINS/DRY+Plugin">DRY</a> (for processing <a href="https://github.com/sebastianbergmann/phpcpd">phpcpd</a> logfiles in PMD-CPD format)</li>
+<li><a href="https://wiki.jenkins-ci.org/display/JENKINS/Phing+Plugin">Phing</a> (for running <a href="http://phing.info">Phing</a> build files)</li>
+<li><a href="https://wiki.jenkins-ci.org/display/JENKINS/Plot+Plugin">Plot</a> (for processing <a href="https://github.com/sebastianbergmann/phploc">phploc</a> CSV output)</li>
 <li><a href="http://wiki.jenkins-ci.org/display/JENKINS/PMD+Plugin">PMD</a> (for processing <a href="http://phpmd.org/">PHPMD</a> logfiles in PMD format)</li>
 <li><a href="https://wiki.jenkins-ci.org/display/JENKINS/Static+Code+Analysis+Plug-ins">Static Code Analysis</a> (for processing various logfiles)</li>
-<li><a href="https://wiki.jenkins-ci.org/display/JENKINS/Analysis+Collector+Plugin">Analysis Collector</a> (for processing various logfiles)</li>
 </ul>
 
 <p>You can install these plugins using the web frontend at</p>
@@ -43,12 +44,13 @@
 <p>or using the <a href="http://wiki.jenkins-ci.org/display/JENKINS/Jenkins+CLI">Jenkins CLI</a>:</p>
 
 <pre><code>wget http://localhost:8080/jnlpJars/jenkins-cli.jar
-java -jar jenkins-cli.jar -s http://localhost:8080 install-plugin phing
-java -jar jenkins-cli.jar -s http://localhost:8080 install-plugin checkstyle
-java -jar jenkins-cli.jar -s http://localhost:8080 install-plugin dry
-java -jar jenkins-cli.jar -s http://localhost:8080 install-plugin pmd
 java -jar jenkins-cli.jar -s http://localhost:8080 install-plugin analysis-core
 java -jar jenkins-cli.jar -s http://localhost:8080 install-plugin analysis-collector
+java -jar jenkins-cli.jar -s http://localhost:8080 install-plugin checkstyle
+java -jar jenkins-cli.jar -s http://localhost:8080 install-plugin dry
+java -jar jenkins-cli.jar -s http://localhost:8080 install-plugin phing
+java -jar jenkins-cli.jar -s http://localhost:8080 install-plugin plot
+java -jar jenkins-cli.jar -s http://localhost:8080 install-plugin pmd
 java -jar jenkins-cli.jar -s http://localhost:8080 safe-restart
 </code></pre>
 
@@ -83,9 +85,25 @@ chown -R jenkins:nogroup drupal-template/</code></pre></li>
 
 <p>The <a href="http://github.com/kasperg/drupal-jenkins-demo">drupal-jenkins-demo repository</a> contains a Drupal project with the <a href="http://reload.github.com/phing-drupal-template">Phing Drupal Template</a> and the <a href="http://drupal.org/project/token">Token module</a> as example of custom code is continuously integrated for <a href="http://jenkins.kasper.reload.dk:8080/job/drupal-demo/">demonstration</a> purposes.</p>
 
+<h2><span id="differences-from-php-template">Differences from PHP Template</span></h2>
+
+<p>The job template has a number of differences from the original <a href="http://jenkins-php.org">Template for Jenkins Jobs for PHP Projects</a>. Some of these are due to Drupal tools and practices and others personal preference.</p>
+
+<h3>JDepend plugin removed</h3>
+
+<p><a href="http://pdepend.org/documentation/software-metrics.html">The metrics calculated by PHP_Depend</a> and displayed by the <a href="https://wiki.jenkins-ci.org/display/JENKINS/JDepend+Plugin">JDepend plugin</a> are mostly related for object oriented programming. Most Drupal modules written using functional programming and thus the metrics are at best of little value, at worst misleading.</p>
+
+<h3>xUnit plugin removed</h3>
+
+<p>Drupal tests are run through the <a href="http://drupal.org/simpletest">SimpleTest framework</a>. SimpleTest results can be written in JUnit XML format using <a href="http://drupalcode.org/project/drupal.git/blob/refs/heads/7.x:/scripts/run-tests.sh#l145">Drupal scripts</a> or <a href="http://drush.ws/help/5#test-run">Drush</a> and Jenkins understands this format natively so there is no need for the plugin.</p>
+
+<h3>Static Code Analysis plugins replaces Violations</h3>
+
+<p>The <a href="https://wiki.jenkins-ci.org/display/JENKINS/Static+Code+Analysis+Plug-ins">Static Code Analysis plugins suite</a> and <a href="https://wiki.jenkins-ci.org/display/JENKINS/Violations">Violations plugin</a> both support parsing and rendering static code analysis results. The Static Code Analysis plugins are used as they are have more features and are frequently updated.</p>
+
 <h2>Support</h2>
 
-<p><a href="https://github.com/reload/jenkins-drupal-template/issues">Issues are tracked on GitHub</a>.</p>
+<p><a href="https://github.com/reload/jenkins-drupal-template/issues">Issues are tracked on GitHub</a>. Comments and pull requests welcome.</p>
 
 
     <hr/>
