@@ -40,9 +40,9 @@ or using the [Jenkins CLI](http://wiki.jenkins-ci.org/display/JENKINS/Jenkins+CL
 In the above, replace `localhost:8080` with the hostname and port of your Jenkins installation.
 
 ## Build Automation
-The configuration of the job template follows the artifacts produced by a Phing build.xml file based on the [Phing Drupal Template](http://reload.github.com/phing-drupal-template).
+The configuration of the job template follows the artifacts produced by a [Phing](http://www.phing.info/trac/) build.xml file based on the [Phing Drupal Template](http://reload.github.com/phing-drupal-template).
 
-The build template must be added to your project as described in [the build template documentation](http://reload.github.com/phing-drupal-template).
+The template assumes that the build template has been added as a submodule in `\build` as described in the [Phing Drupal template documentation](http://reload.github.com/phing-drupal-template).
 
 ## Using the Job Template
 1. Check out the `jenkins-drupal-template` project from Git:
@@ -51,20 +51,23 @@ The build template must be added to your project as described in [the build temp
     chown -R jenkins:nogroup drupal-template/</code></pre>
 2. Reload Jenkins' configuration, for instance using the Jenkins CLI:
     <pre><code>java -jar jenkins-cli.jar -s http://localhost:8080 reload-configuration</pre></code>
-3. Click on "New Job".
-4. Enter a "Job name".
-5. Select "Copy existing job" and enter "drupal-template" into the "Copy from" field.
-6. Click "OK".
-7. Disable the "Disable Build" option.
-8. Fill in your "Source Code Management" information.
-9. Configure a "Build Trigger", for instance "Poll SCM".
-10. Click "Save".
+3. Click on *New Job*.
+4. Enter a *Job name*.
+5. Select *Copy existing job* and enter *drupal-template* into the *Copy from* field.
+6. Click *OK*.
+7. Disable the *Disable Build* option.
+8. Fill in your *Source Code Management* information.
+9. Configure a *Build Trigger*, for instance *Poll SCM*.
+10. Click *Save*.
 
 ## Demo
 The [drupal-jenkins-demo repository](http://github.com/kasperg/drupal-jenkins-demo) contains a Drupal project with the [Phing Drupal Template](http://reload.github.com/phing-drupal-template) and the [Token module](http://drupal.org/project/token) as example of custom code is continuously integrated for [demonstration](http://jenkins.kasper.reload.dk:8080/job/drupal-demo/) purposes.
 
 ## <span id="differences-from-php-template">Differences from PHP Template</span>
 The job template has a number of differences from the original [Template for Jenkins Jobs for PHP Projects](http://jenkins-php.org). Some of these are due to Drupal tools and practices and others personal preference.
+
+### Build file in separate project
+Due to the extensive work required to setup an automated build for Drupal projects the build file has been split into [a separate project](http://reload.github.com/phing-drupal-template). This also makes the build file useful with other continuous integration systems.
 
 ### JDepend plugin removed
 [The metrics calculated by PHP_Depend](http://pdepend.org/documentation/software-metrics.html) and displayed by the [JDepend plugin](https://wiki.jenkins-ci.org/display/JENKINS/JDepend+Plugin) are mostly related for object oriented programming. Most Drupal modules written using functional programming and thus the metrics are at best of little value, at worst misleading.

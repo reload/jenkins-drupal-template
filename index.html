@@ -58,9 +58,9 @@ java -jar jenkins-cli.jar -s http://localhost:8080 safe-restart
 
 <h2>Build Automation</h2>
 
-<p>The configuration of the job template follows the artifacts produced by a Phing build.xml file based on the <a href="http://reload.github.com/phing-drupal-template">Phing Drupal Template</a>.</p>
+<p>The configuration of the job template follows the artifacts produced by a <a href="http://www.phing.info/trac/">Phing</a> build.xml file based on the <a href="http://reload.github.com/phing-drupal-template">Phing Drupal Template</a>.</p>
 
-<p>The build template must be added to your project as described in <a href="http://reload.github.com/phing-drupal-template">the build template documentation</a>.</p>
+<p>The template assumes that the build template has been added as a submodule in <code>\build</code> as described in the <a href="http://reload.github.com/phing-drupal-template">Phing Drupal template documentation</a>.</p>
 
 <h2>Using the Job Template</h2>
 
@@ -71,14 +71,14 @@ git clone git://github.com/reload/jenkins-drupal-template.git drupal-template
 chown -R jenkins:nogroup drupal-template/</code></pre></li>
 <li>Reload Jenkins' configuration, for instance using the Jenkins CLI:
 <pre><code>java -jar jenkins-cli.jar -s http://localhost:8080 reload-configuration</pre></code></li>
-<li>Click on "New Job".</li>
-<li>Enter a "Job name".</li>
-<li>Select "Copy existing job" and enter "drupal-template" into the "Copy from" field.</li>
-<li>Click "OK".</li>
-<li>Disable the "Disable Build" option.</li>
-<li>Fill in your "Source Code Management" information.</li>
-<li>Configure a "Build Trigger", for instance "Poll SCM".</li>
-<li>Click "Save".</li>
+<li>Click on <em>New Job</em>.</li>
+<li>Enter a <em>Job name</em>.</li>
+<li>Select <em>Copy existing job</em> and enter <em>drupal-template</em> into the <em>Copy from</em> field.</li>
+<li>Click <em>OK</em>.</li>
+<li>Disable the <em>Disable Build</em> option.</li>
+<li>Fill in your <em>Source Code Management</em> information.</li>
+<li>Configure a <em>Build Trigger</em>, for instance <em>Poll SCM</em>.</li>
+<li>Click <em>Save</em>.</li>
 </ol>
 
 <h2>Demo</h2>
@@ -88,6 +88,10 @@ chown -R jenkins:nogroup drupal-template/</code></pre></li>
 <h2><span id="differences-from-php-template">Differences from PHP Template</span></h2>
 
 <p>The job template has a number of differences from the original <a href="http://jenkins-php.org">Template for Jenkins Jobs for PHP Projects</a>. Some of these are due to Drupal tools and practices and others personal preference.</p>
+
+<h3>Build file in separate project</h3>
+
+<p>Due to the extensive work required to setup an automated build for Drupal projects the build file has been split into <a href="http://reload.github.com/phing-drupal-template">a separate project</a>. This also makes the build file useful with other continuous integration systems.</p>
 
 <h3>JDepend plugin removed</h3>
 
@@ -109,10 +113,10 @@ chown -R jenkins:nogroup drupal-template/</code></pre></li>
     <hr/>
     <div class="footer">
       <p>
-        The "Jenkins job template for Drupal projects" is developed by <a href="http://reload.dk">Reload!</a> - a Drupal development agency located in Copenhagen, Denmark. It is licensed under a Creative Commons Attribution-ShareAlike 3.0 Unported License.
+        The <em>Jenkins job template for Drupal projects</em> is developed by <a href="http://reload.dk">Reload!</a> - a Drupal development agency located in Copenhagen, Denmark. It is licensed under a Creative Commons Attribution-ShareAlike 3.0 Unported License.
       </p>
       <p>
-        It is based upon Sebastian Bergmans <a href="http://jenkins-php.org/">"Template for Jenkins Jobs for PHP Projects"</a>.
+        It is based upon Sebastian Bergmans <em><a href="http://jenkins-php.org/">Template for Jenkins Jobs for PHP Projects</a></em>.
       </p>
 
       <a href="http://github.com/reload/jenkins-drupal-template"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://a248.e.akamai.net/assets.github.com/img/7afbc8b248c68eb468279e8c17986ad46549fb71/687474703a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub"></a>
